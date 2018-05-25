@@ -17,7 +17,6 @@ int main(int argc, const char * argv[]) {
   while (fgets(player_string, 1000, file) != NULL) {
     char *stat;
     struct player p;
-    strsep(&player_string, ",");
     while ((stat = strsep(&player_string, ",") != NULL)) {
       printf("Stat is %s", stat);
     }
