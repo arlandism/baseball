@@ -13,9 +13,9 @@ float strikeout_percentage(struct player p) {
 int main(int argc, const char * argv[]) {
   printf("Player Name\tEPA\tK%%\n");
   FILE *file = fopen(argv[1], "r");
-  char player_string[1000];
+  char player_string[10000];
   char *ps_ptr = player_string;
-  while (fgets(player_string, 1000, file) != NULL) {
+  while (fgets(player_string, 10000, file) != NULL) {
     char *stat;
     struct player p;
     while ((stat = strsep(&ps_ptr, ",")) != NULL) {
