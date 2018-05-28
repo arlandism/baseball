@@ -1,8 +1,8 @@
 struct player {
-  char name[100];
+  char *name;
   int age;
-  char team[4];
-  char league[2];
+  char *team;
+  char *league;
   int g;
   int plate_appearances;
   int at_bat;
