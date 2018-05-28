@@ -45,7 +45,7 @@ struct player create_player(char **stats) {
 }
 
 int main(int argc, const char * argv[]) {
-  printf("Player Name\tEPA\tK%%\n");
+  printf("%20s\t%3s\t%3s%%\n", "Player Name", "EPA", "K");
   FILE *file = fopen(argv[1], "r");
   char player_string[10000];
   char *stats[30];
@@ -59,7 +59,7 @@ int main(int argc, const char * argv[]) {
       i++;
     }
     p = create_player(stats);
-    printf("%s\t%d\t%.1f\n", p.name, effective_plate_appearances(p), strikeout_percentage(p));
+    printf("%20s\t%3d\t%.1f\n", p.name, effective_plate_appearances(p), strikeout_percentage(p));
   }
   return 0;
 }
