@@ -51,14 +51,13 @@ int main(int argc, const char * argv[]) {
   char *stats[30];
   while ((fgets(player_string, 10000, file) != NULL)) {
     char *stat;
-    struct player p;
     int i = 0;
     char *ps_ptr = player_string;
     while ((stat = strsep(&ps_ptr, ",")) != NULL) {
       stats[i] = stat;
       i++;
     }
-    p = create_player(stats);
+    struct player p = create_player(stats);
     printf("%20s\t%3d\t%.1f\n", p.name, effective_plate_appearances(p), strikeout_percentage(p));
   }
   return 0;
