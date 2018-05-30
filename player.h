@@ -1,3 +1,5 @@
+#ifndef PLAYER_H
+#define PLAYER_H
 struct player {
   char *name;
   int age;
@@ -32,3 +34,5 @@ struct player {
 
 int effective_plate_appearances(struct player p);
 float strikeout_percentage(struct player p);
+struct player create_player(char **stats);
+#endif
