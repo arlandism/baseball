@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int effective_plate_appearances(struct player p) {
-  return p.at_bat + p.base_on_balls;
+  return p.at_bat + p.walks;
 }
 
 float strikeout_percentage(struct player p) {
@@ -28,17 +28,16 @@ struct player create_player(char **stats) {
   p.caught_stealing = atoi(stats[14]);
   p.walks = atoi(stats[15]);
   p.strikeouts = atoi(stats[16]);
-  p.base_on_balls = atoi(stats[17]);
-  p.ba = atof(stats[18]);
-  p.onbase_percentage = atof(stats[19]);
-  p.slugging_percentage = atof(stats[20]);
-  p.onbase_plus_slugging = atof(stats[21]);
-  p.ops_plus = atoi(stats[22]);
-  p.total_bases = atoi(stats[23]);
-  p.gdp = atoi(stats[24]);
-  p.hit_by_pinch = atoi(stats[25]);
-  p.sh = atoi(stats[26]);
-  p.sacrifice_fly = atoi(stats[27]);
-  p.intentional_walk = atoi(stats[28]);
+  p.batting_avg = atof(stats[17]);
+  p.onbase_percentage = atof(stats[18]);
+  p.slugging_percentage = atof(stats[19]);
+  p.onbase_plus_slugging = atof(stats[20]);
+  p.ops_plus = atoi(stats[21]);
+  p.total_bases = atoi(stats[22]);
+  p.gdp = atoi(stats[23]);
+  p.hit_by_pinch = atoi(stats[24]);
+  p.sh = atoi(stats[25]);
+  p.sacrifice_fly = atoi(stats[26]);
+  p.intentional_walk = atoi(stats[27]);
   return p;
 }

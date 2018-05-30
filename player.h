@@ -19,7 +19,7 @@ struct player {
   int walks;
   int strikeouts;
   int base_on_balls;
-  float ba;
+  float batting_avg;
   float onbase_percentage;
   float slugging_percentage;
   float onbase_plus_slugging;
