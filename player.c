@@ -9,8 +9,16 @@ float strikeout_percentage(struct player p) {
   return p.strikeouts / (float) effective_plate_appearances(p);
 }
 
+void normalize_name(char *name) {
+  size_t len = strlen(name);
+  char last = name[len - 1];
+  if (last == '#' || last == '*')
+    name[len - 1] = '\0';
+}
+
 struct player create_player(char **stats) {
   struct player p;
+  normalize_name(stats[0]);
   p.name = stats[0];
   p.age = atoi(stats[1]);
   p.team = stats[2];
