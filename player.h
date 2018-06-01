@@ -35,6 +35,13 @@ typedef struct player {
 
 int effective_plate_appearances(player_t *p);
 float strikeout_percentage(player_t *p);
+float hitout_percentage(player_t *p);
+float walk_percentage(player_t *p);
+float single_percentage(player_t *p);
+float double_percentage(player_t *p);
+float triple_percentage(player_t *p);
+float home_run_percentage(player_t *p);
+float avg_base_rating(player_t *p);
 player_t * create_player(char **stats);
 void destroy_player(player_t * p);
 #endif

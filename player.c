@@ -11,6 +11,38 @@ float strikeout_percentage(player_t *p) {
   return p->strikeouts / (float) effective_plate_appearances(p);
 }
 
+float hitout_percentage(player_t *p) {
+  return (p->at_bat - (p->home_runs + p->strikeouts)) / effective_plate_appearances(p);
+}
+
+float walk_percentage(player_t *p) {
+  return p->walks / effective_plate_appearances(p);
+}
+
+float single_percentage(player_t *p) {
+  return (p->hits - (p->doubles + p->triples + p->home_runs)) / effective_plate_appearances(p);
+}
+
+float double_percentage(player_t *p) {
+  return p->doubles / effective_plate_appearances(p);
+}
+
+float triple_percentage(player_t *p) {
+  return p->triples / effective_plate_appearances(p);
+}
+
+float home_run_percentage(player_t *p) {
+  return p->home_runs / effective_plate_appearances(p);
+}
+
+float avg_base_rating(player_t *p) {
+  return walk_percentage(p) +
+    single_percentage(p) +
+    (2 * double_percentage(p))+
+     (3 * triple_percentage(p)) +
+      (4 * home_run_percentage(p));
+}
+
 void normalize_name(char *name) {
   size_t len = strlen(name);
   char last = name[len - 1];
