@@ -1,11 +1,12 @@
 #include "player.h"
 #include <stdlib.h>
+#include <string.h>
 
-int effective_plate_appearances(struct player p) {
+int effective_plate_appearances(player_t p) {
   return p.at_bat + p.walks;
 }
 
-float strikeout_percentage(struct player p) {
+float strikeout_percentage(player_t p) {
   return p.strikeouts / (float) effective_plate_appearances(p);
 }
 
@@ -16,8 +17,8 @@ void normalize_name(char *name) {
     name[len - 1] = '\0';
 }
 
-struct player create_player(char **stats) {
-  struct player p;
+player_t create_player(char **stats) {
+  player_t p;
   normalize_name(stats[0]);
   p.name = stats[0];
   p.age = atoi(stats[1]);

@@ -1,6 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-struct player {
+typedef struct player {
   char *name;
   int age;
   char *team;
@@ -30,9 +30,9 @@ struct player {
   int sh;
   int sacrifice_fly;
   int intentional_walk;
-};
+} player_t;
 
-int effective_plate_appearances(struct player p);
-float strikeout_percentage(struct player p);
-struct player create_player(char **stats);
+int effective_plate_appearances(player_t p);
+float strikeout_percentage(player_t p);
+player_t create_player(char **stats);
 #endif

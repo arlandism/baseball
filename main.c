@@ -15,7 +15,7 @@ int main(int argc, const char * argv[]) {
       stats[i] = stat;
       i++;
     }
-    struct player p = create_player(stats);
+    player_t p = create_player(stats);
     printf("%20s\t%3d\t%.1f%%\n", p.name, effective_plate_appearances(p), strikeout_percentage(p) * 100);
   }
   return 0;
