@@ -42,6 +42,7 @@ float double_percentage(player_t *p);
 float triple_percentage(player_t *p);
 float home_run_percentage(player_t *p);
 float avg_base_rating(player_t *p);
+float out_percentage(player_t *p);
 player_t * create_player(char **stats);
 void destroy_player(player_t * p);
 #endif

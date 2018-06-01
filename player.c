@@ -19,6 +19,10 @@ float walk_percentage(player_t *p) {
   return p->walks / effective_plate_appearances(p);
 }
 
+float out_percentage(player_t *p) {
+  return strikeout_percentage(p) + hitout_percentage(p);
+}
+
 float single_percentage(player_t *p) {
   return (p->hits - (p->doubles + p->triples + p->home_runs)) / effective_plate_appearances(p);
 }
