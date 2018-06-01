@@ -4,13 +4,17 @@
 #include <errno.h>
 #include <stdlib.h>
 
-int main(int argc, const char * argv[]) {
-  printf("%20s\t%3s\t%3s%%\n", "Player Name", "EPA", "K");
-  FILE *file = fopen(argv[1], "r");
+void teardown(player_t **players, int player_count) {
+  for (int i = 0; i < player_count; i++) {
+    destroy_player(players[i]);
+    free(&players[i]);
+  }
+}
+
+int create_players(FILE *file, player_t **players) {
   char player_string[10000];
   char *stats[30];
-  player_t ** players = NULL;
-  int j = 0;
+  int num_players = 0;
   while ((fgets(player_string, 10000, file) != NULL)) {
     char *stat;
     int i = 0;
@@ -24,12 +28,16 @@ int main(int argc, const char * argv[]) {
       exit(errno);
     }
     player_t *p = create_player(stats);
-    players[j] = p;
-    printf("%20s\t%3d\t%.1f%%\n", p->name, effective_plate_appearances(p), strikeout_percentage(p) * 100);
-    destroy_player(p);
+    players[num_players] = p;
   }
-  for (int k = 0; k < j; k++) {
-    free(players[k]);
-  }
+  return num_players;
+}
+
+int main(int argc, const char * argv[]) {
+  printf("%20s\t%3s\t%3s%%\n", "Player Name", "EPA", "K");
+  FILE *file = fopen(argv[1], "r");
+  player_t ** players = NULL;
+  int num_players = create_players(file, players);
+  teardown(players, num_players);
   return 0;
 }
