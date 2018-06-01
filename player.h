@@ -33,7 +33,8 @@ typedef struct player {
   char *position;
 } player_t;
 
-int effective_plate_appearances(player_t p);
-float strikeout_percentage(player_t p);
-player_t create_player(char **stats);
+int effective_plate_appearances(player_t *p);
+float strikeout_percentage(player_t *p);
+player_t * create_player(char **stats);
+void destroy_player(player_t * p);
 #endif
