@@ -30,6 +30,7 @@ int create_players(FILE *file, player_t **players) {
     }
     player_t *p = create_player(stats);
     players[num_players] = p;
+    num_players += 1;
   }
   return num_players;
 }
