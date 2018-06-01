@@ -30,6 +30,7 @@ typedef struct player {
   int sh;
   int sacrifice_fly;
   int intentional_walk;
+  char *position;
 } player_t;
 
 int effective_plate_appearances(player_t p);

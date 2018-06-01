@@ -48,5 +48,6 @@ player_t create_player(char **stats) {
   p.sh = atoi(stats[25]);
   p.sacrifice_fly = atoi(stats[26]);
   p.intentional_walk = atoi(stats[27]);
+  p.position = stats[28];
   return p;
 }
