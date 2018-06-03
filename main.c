@@ -24,10 +24,13 @@ int create_players(FILE *file, player_t **players) {
       stats[i] = stat;
       i++;
     }
-    players = realloc(players, sizeof(players) + sizeof(player_t *));
-    if (players == NULL) {
-      exit(errno);
+    if (num_players % 10 == 0) {
+      players = realloc(players, sizeof(players) + (10 * sizeof(player_t *)));
+      if (players == NULL) {
+        exit(errno);
+      }
     }
+
     player_t *p = create_player(stats);
     players[num_players] = p;
     num_players += 1;
