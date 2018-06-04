@@ -25,37 +25,18 @@ int create_players(FILE *file, player_t ***players) {
       i++;
     }
     if (num_players % 10 == 0) {
-      *players = realloc(*players, sizeof(*players) + (10 * sizeof(player_t *)));
+      size_t alloc_size = ((num_players + 1) * sizeof(*players)) + (10 * sizeof(player_t *));
+      *players = realloc(*players, alloc_size);
       if (*players == NULL) {
         exit(errno);
       }
     }
 
     player_t *p = create_player(stats);
-    if (num_players == 0) {
-      printf("Pre-assignment\n");
-      printf("Player address %p\n", p);
-      printf("Player name address %p\n", p->name);
-      printf("Test name %s\n", p->name);
-      printf("\n\n");
-    }
-
     (*players)[num_players] = p;
 
-    if (num_players == 0) {
-      printf("Post-assignment\n");
-      printf("Player address %p\n", (*players)[0]);
-      printf("Player name address %p\n", (*players)[0]->name);
-      printf("Test name %s\n",  (*players)[0]->name);
-      printf("\n\n");
-    }
     num_players += 1;
   }
-  printf("Post-assignment\n");
-  printf("Player address %p\n", (*players)[0]);
-  printf("Player name address %p\n", (*players)[0]->name);
-  printf("Test name %s\n",  (*players)[0]->name);
-  printf("\n\n");
   return num_players;
 }
 
@@ -72,7 +53,6 @@ void print_stats(player_t **players, int num_players) {
   player_t *best_batter = NULL;
   float best_abr = -INFINITY;
 
-  printf("Player name %s\n", players[0]->name);
   for (int i = 0; i < num_players; i++) {
     player_t *p = players[i];
     float player_strikeout = strikeout_percentage(p);
