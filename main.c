@@ -8,8 +8,8 @@
 void teardown(player_t **players, int player_count) {
   for (int i = 0; i < player_count; i++) {
     destroy_player(players[i]);
-    free(&players[i]);
   }
+  free(players);
 }
 
 int create_players(FILE *file, player_t ***players) {
@@ -90,6 +90,6 @@ int main(int argc, const char * argv[]) {
   player_t ** players = NULL;
   int num_players = create_players(file, &players);
   print_stats(players, num_players);
-//  teardown(players, num_players);
+  teardown(players, num_players);
   return 0;
 }
