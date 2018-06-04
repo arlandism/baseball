@@ -79,10 +79,10 @@ void print_stats(player_t **players, int num_players) {
       best_abr = player_abr;
     }
   }
-  printf("Lowest strikeout rate\n%s\t%.2f\n", lowest_strikeout->name, lowest_strikeout_rate);
-  printf("Toughest out rate\n%s\t%.2f\n", toughest_out->name, lowest_out_rate);
-  printf("Highest home run rate\n%s\t%.2f\n", highest_hrs->name, highest_hr_rate);
-  printf("Best batter player\n%s\t%.2f\n", best_batter->name, best_abr);
+  printf("Lowest strikeout rate\n%s\t%.2f%%\n\n", lowest_strikeout->name, lowest_strikeout_rate * 100);
+  printf("Toughest out rate\n%s\t%.2f%%\n\n", toughest_out->name, lowest_out_rate * 100);
+  printf("Highest home run rate\n%s\t%.2f%%\n\n", highest_hrs->name, highest_hr_rate * 100);
+  printf("Best batter player\n%s\t%f\n\n", best_batter->name, best_abr);
 }
 
 int main(int argc, const char * argv[]) {

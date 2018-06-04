@@ -12,11 +12,11 @@ float strikeout_percentage(player_t *p) {
 }
 
 float hitout_percentage(player_t *p) {
-  return (p->at_bat - (p->home_runs + p->strikeouts)) / effective_plate_appearances(p);
+  return (p->at_bat - (p->hits + p->strikeouts)) / (float) effective_plate_appearances(p);
 }
 
 float walk_percentage(player_t *p) {
-  return p->walks / effective_plate_appearances(p);
+  return p->walks / (float) effective_plate_appearances(p);
 }
 
 float out_percentage(player_t *p) {
@@ -24,19 +24,19 @@ float out_percentage(player_t *p) {
 }
 
 float single_percentage(player_t *p) {
-  return (p->hits - (p->doubles + p->triples + p->home_runs)) / effective_plate_appearances(p);
+  return (p->hits - (p->doubles + p->triples + p->home_runs)) / (float) effective_plate_appearances(p);
 }
 
 float double_percentage(player_t *p) {
-  return p->doubles / effective_plate_appearances(p);
+  return p->doubles / (float) effective_plate_appearances(p);
 }
 
 float triple_percentage(player_t *p) {
-  return p->triples / effective_plate_appearances(p);
+  return p->triples / (float) effective_plate_appearances(p);
 }
 
 float home_run_percentage(player_t *p) {
-  return p->home_runs / effective_plate_appearances(p);
+  return p->home_runs / (float) effective_plate_appearances(p);
 }
 
 float avg_base_rating(player_t *p) {
