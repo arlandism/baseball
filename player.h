@@ -1,10 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 typedef struct player {
-  char *name;
+  char name[30];
   int age;
-  char *team;
-  char *league;
+  char team[4];
+  char league[4];
   int g;
   int plate_appearances;
   int at_bat;
@@ -30,7 +30,7 @@ typedef struct player {
   int sh;
   int sacrifice_fly;
   int intentional_walk;
-  char *position;
+  char position[11];
 } player_t;
 
 int effective_plate_appearances(player_t *p);

@@ -64,10 +64,10 @@ player_t * create_player(char **stats) {
     exit(errno);
   }
   normalize_name(stats[0]);
-  p->name = stats[0];
+  strcpy(p->name, stats[0]);
   p->age = atoi(stats[1]);
-  p->team = stats[2];
-  p->league = stats[3];
+  strcpy(p->team, stats[2]);
+  strcpy(p->league, stats[3]);
   p->g = atoi(stats[4]);
   p->plate_appearances = atoi(stats[5]);
   p->at_bat = atoi(stats[6]);
@@ -92,6 +92,6 @@ player_t * create_player(char **stats) {
   p->sh = atoi(stats[25]);
   p->sacrifice_fly = atoi(stats[26]);
   p->intentional_walk = atoi(stats[27]);
-  p->position = stats[28];
+  strcpy(p->position, stats[28]);
   return p;
 }
