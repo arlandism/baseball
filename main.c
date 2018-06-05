@@ -25,7 +25,7 @@ int create_players(FILE *file, player_t ***players) {
       i++;
     }
     if (num_players % 10 == 0) {
-      size_t alloc_size = ((num_players + 1) * sizeof(*players)) + (10 * sizeof(player_t *));
+      size_t alloc_size = ((num_players + 10) * sizeof(player_t *));
       *players = realloc(*players, alloc_size);
       if (*players == NULL) {
         exit(errno);
