@@ -1,3 +1,3 @@
 
 target:
-	gcc main.c player.c -o baseball
+	gcc -Wall main.c player.c -o baseball
