@@ -6,13 +6,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <math.h>
-
-typedef struct team {
-  player_list *players;
-  player_queue *top_nine;
-  float avg_abr;
-  char team[4];
-} team;
+#include "team.h"
 
 typedef struct team_list {
   team *t;
@@ -32,7 +26,7 @@ void teardown(team_list *team) {
 }
 
 // TODO make generic list type
-int initialize_teams(FILE *file, team_list *teams) {
+int initialize_teams(FILE *file, list **teams) {
   char player_string[10000];
   char *stats[30];
   int num_teams = 0;
@@ -45,16 +39,16 @@ int initialize_teams(FILE *file, team_list *teams) {
       i++;
     }
     player_t *p = create_player(stats);
-    team = search(teams, p->team); // TODO search team by name
-    if (team == NULL) {
+    list *team_node = search_list(teams, p->team);
+    if (team_node == NULL) {
       teams = realloc(teams, sizeof(team));
       if (teams == NULL) {
         exit(errno);
       }
       num_teams += 1;
-      create_team(p->team); // TODO need to alloc here
+      team *team = create_team(p->team); // TODO need to alloc here
     }
-    insert_player(team, p); // TODO
+    insert_player(team, p);
   }
   return num_teams;
 }
@@ -67,7 +61,30 @@ void print_stats(team_list *teams) {
   }
 }
 
+typedef struct linked_list {
+  struct linked_list *next;
+  void *item;
+} linked_list;
+
+void insert_string(linked_list ***names, char *item) {
+  linked_list *l = malloc(sizeof(linked_list));
+  l->item = item;
+  (*names) = &l;
+}
+
+void insert_int(linked_list ***names, int *item) {
+  linked_list *l = malloc(sizeof(linked_list));
+  l->item = item;
+  (*names) = &l;
+}
+
 int main(int argc, const char * argv[]) {
+  linked_list **names = NULL;
+  insert_string(&names, "Arlandis");
+  int num = 3;
+  insert_int(&names, &num);
+  printf("The first name is %s\n", (*names)->item);
+  printf("The first int is %d\n", (*(*names)->next->item));
   FILE *file = fopen(argv[1], "r");
   team_list *teams = NULL;
   int num_teams = initialize_teams(file, teams);

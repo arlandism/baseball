@@ -9,5 +9,5 @@ typedef struct list {
 
 list * insert(list *l, void *item);
 
-list *search(list *head, void *item);
+list *search_list(list *head, void *item);
 #endif
