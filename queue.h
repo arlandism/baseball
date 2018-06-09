@@ -2,11 +2,11 @@
 #define QUEUE_H
 #include "list.h"
 #include "player.h"
-typedef struct player_queue {
-  player_list *list;
-} player_queue;
+typedef struct queue {
+  list *list;
+} queue;
 
-void enqueue(player_queue *, player_t *);
-player_t * dequeue(player_queue *);
+void enqueue(queue *q, void*item);
+void * dequeue(queue *q);
 #endif
 

@@ -1,19 +1,19 @@
 #include "list.h"
-#include "player.h"
 #include <stdlib.h>
 
-player_list *insert(player_list *head, player_t *p) {
-  player_list *new_list = malloc(sizeof(player_list));
-  new_list->player = p;
+list *insert(list *head, void *item) {
+  list *new_list = malloc(sizeof(list));
+  new_list->item = item;
   new_list->next = head;
   return new_list;
 }
 
-player_list *search(player_list *head, player_t *p) {
-  while(head != NULL && head->player != p)
+list *search(list *head, void *item) {
+  while(head != NULL && head->item != item)
     head = head->next;
   return head;
 }
 
-void delete(player_list *head, player_t *p) {
+void free_list(list *l) {
+  free(l);
 }

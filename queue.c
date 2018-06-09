@@ -3,14 +3,14 @@
 #include "list.h"
 #include <stdlib.h>
 
-void enqueue(player_queue *q, player_t *p) {
-  insert(q->list, p);
+void enqueue(queue *q, void *item) {
+  insert(q->list, item);
 }
 
-player_t * dequeue(player_queue *q) {
-  player_list *tail = q->list;
+void * dequeue(queue *q) {
+  list *tail = q->list;
   while (tail->next != NULL)
     tail = tail->next;
-  if (tail) return tail->player;
+  if (tail) return tail->item;
   return NULL;
 }

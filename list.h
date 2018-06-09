@@ -1,12 +1,13 @@
 #ifndef LIST_H
 #define LIST_H
-#include "player.h"
-typedef struct player_list {
-  player_t *player;
-  struct player_list *next;
-} player_list;
+/* Generic Linked List Implementation */
 
-player_list * insert(player_list *l, player_t *p);
+typedef struct list {
+  void *item;
+  struct list *next;
+} list;
 
-player_list *search(player_list *head, player_t *p);
+list * insert(list *l, void *item);
+
+list *search(list *head, void *item);
 #endif
