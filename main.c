@@ -28,17 +28,14 @@ typedef struct team_list {
 // sort team list by avg_abr
 // print stats
 
-void teardown(player_t **players, int player_count) {
-  for (int i = 0; i < player_count; i++) {
-    destroy_player(players[i]);
-  }
-  free(players);
+void teardown(team_list *team) {
 }
 
-int create_players(FILE *file, player_t ***players) {
+// TODO make generic list type
+int initialize_teams(FILE *file, team_list *teams) {
   char player_string[10000];
   char *stats[30];
-  int num_players = 0;
+  int num_teams = 0;
   while ((fgets(player_string, 10000, file) != NULL)) {
     char *stat;
     int i = 0;
@@ -47,70 +44,41 @@ int create_players(FILE *file, player_t ***players) {
       stats[i] = stat;
       i++;
     }
-    size_t alloc_size = ((num_players + 1) * sizeof(player_t *));
-    *players = realloc(*players, alloc_size);
-    if (*players == NULL) {
-      exit(errno);
-    }
-
     player_t *p = create_player(stats);
-    (*players)[num_players] = p;
-
-    num_players += 1;
+    team = search(teams, p->team); // TODO search team by name
+    if (team == NULL) {
+      teams = realloc(teams, sizeof(team));
+      if (teams == NULL) {
+        exit(errno);
+      }
+      num_teams += 1;
+      create_team(p->team); // TODO need to alloc here
+    }
+    insert_player(team, p); // TODO
   }
-  return num_players;
+  return num_teams;
 }
 
-void print_stats(player_t **players, int num_players) {
-  player_t *lowest_strikeout = NULL;
-  float lowest_strikeout_rate = INFINITY;
-
-  player_t *toughest_out = NULL;
-  float lowest_out_rate = INFINITY;
-
-  player_t *highest_hrs = NULL;
-  float highest_hr_rate = -INFINITY;
-
-  player_t *best_batter = NULL;
-  float best_abr = -INFINITY;
-
-  for (int i = 0; i < num_players; i++) {
-    player_t *p = players[i];
-    float player_strikeout = strikeout_percentage(p);
-    if (player_strikeout < lowest_strikeout_rate) {
-      lowest_strikeout = p;
-      lowest_strikeout_rate = player_strikeout;
-    }
-
-    float player_out_rate = out_percentage(p);
-    if (player_out_rate < lowest_out_rate) {
-      toughest_out = p;
-      lowest_out_rate = player_out_rate;
-    }
-
-    float player_hr_rate = home_run_percentage(p);
-    if (player_hr_rate > highest_hr_rate) {
-      highest_hrs = p;
-      highest_hr_rate = player_hr_rate;
-    }
-
-    float player_abr = avg_base_rating(p);
-    if (player_abr > best_abr) {
-      best_batter = p;
-      best_abr = player_abr;
-    }
+void print_stats(team_list *teams) {
+  team *t = teams;
+  while (t != NULL) {
+    printf("Team: %s\nAvg ABR: %f\n", t->name, t->avg_abr);
+    t = t->next;
   }
-  printf("Lowest strikeout rate\n%s\t%.2f%%\n\n", lowest_strikeout->name, lowest_strikeout_rate * 100);
-  printf("Toughest out rate\n%s\t%.2f%%\n\n", toughest_out->name, lowest_out_rate * 100);
-  printf("Highest home run rate\n%s\t%.2f%%\n\n", highest_hrs->name, highest_hr_rate * 100);
-  printf("Best batter player\n%s\t%f\n\n", best_batter->name, best_abr);
 }
 
 int main(int argc, const char * argv[]) {
   FILE *file = fopen(argv[1], "r");
-  player_t ** players = NULL;
-  int num_players = create_players(file, &players);
-  print_stats(players, num_players);
-  teardown(players, num_players);
+  team_list *teams = NULL;
+  int num_teams = initialize_teams(file, teams);
+  team *t = teams;
+  while (t != NULL) {
+    calculate_team_abr(t); // TODO
+    sort_players_by_abr(t); // TODO
+    t = t->next;
+  }
+  sort_teams_by_abr_asc(teams); // TODO
+  print_stats(teams);
+  teardown(teams);
   return 0;
 }
