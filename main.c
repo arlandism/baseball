@@ -8,10 +8,6 @@
 #include <math.h>
 #include "team.h"
 
-typedef struct team_list {
-  team *t;
-} team_list;
-
 // initialize all the players and teams
 //   add players to teams
 //     as we go, keep the players sorted by abr
@@ -22,11 +18,10 @@ typedef struct team_list {
 // sort team list by avg_abr
 // print stats
 
-void teardown(team_list *team) {
+void teardown(list **teams) {
 }
 
-// TODO make generic list type
-int initialize_teams(FILE *file, list **teams) {
+void initialize_teams(FILE *file, list **teams) {
   char player_string[10000];
   char *stats[30];
   int num_teams = 0;
@@ -40,61 +35,47 @@ int initialize_teams(FILE *file, list **teams) {
     }
     player_t *p = create_player(stats);
     list *team_node = search_list(teams, p->team);
+    team *team;
     if (team_node == NULL) {
       teams = realloc(teams, sizeof(team));
       if (teams == NULL) {
         exit(errno);
       }
       num_teams += 1;
-      team *team = create_team(p->team); // TODO need to alloc here
+      team = create_team(p->team); // TODO need to alloc here
+    } else {
+      team = team_node->item;
     }
+
     insert_player(team, p);
   }
-  return num_teams;
 }
 
-void print_stats(team_list *teams) {
-  team *t = teams;
-  while (t != NULL) {
-    printf("Team: %s\nAvg ABR: %f\n", t->name, t->avg_abr);
-    t = t->next;
+void print_stats(list **teams) {
+  list *l = (*teams);
+  while (l != NULL) {
+    team *team = l->item;
+    printf("Team: %s\nAvg ABR: %f\n", team->name, team->avg_abr);
+    l = l->next;
   }
 }
 
-typedef struct linked_list {
-  struct linked_list *next;
-  void *item;
-} linked_list;
-
-void insert_string(linked_list ***names, char *item) {
-  linked_list *l = malloc(sizeof(linked_list));
-  l->item = item;
-  (*names) = &l;
-}
-
-void insert_int(linked_list ***names, int *item) {
-  linked_list *l = malloc(sizeof(linked_list));
-  l->item = item;
-  (*names) = &l;
+void sort_teams_by_abr_asc(team **teams) {
 }
 
 int main(int argc, const char * argv[]) {
-  linked_list **names = NULL;
-  insert_string(&names, "Arlandis");
-  int num = 3;
-  insert_int(&names, &num);
+  list **names = NULL;
   printf("The first name is %s\n", (*names)->item);
-  printf("The first int is %d\n", (*(*names)->next->item));
   FILE *file = fopen(argv[1], "r");
-  team_list *teams = NULL;
-  int num_teams = initialize_teams(file, teams);
-  team *t = teams;
-  while (t != NULL) {
-    calculate_team_abr(t); // TODO
-    sort_players_by_abr(t); // TODO
-    t = t->next;
+  list **teams = NULL;
+  initialize_teams(file, teams);
+  list *l = *teams;
+  while (l != NULL) {
+    calculate_team_abr(l->item);
+    sort_players_by_abr(l->item);
+    l = l->next;
   }
-  sort_teams_by_abr_asc(teams); // TODO
+  sort_teams_by_abr_asc(teams);
   print_stats(teams);
   teardown(teams);
   return 0;
