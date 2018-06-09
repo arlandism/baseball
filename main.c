@@ -1,9 +1,32 @@
 #include <stdio.h>
 #include <string.h>
 #include "player.h"
+#include "list.h"
+#include "queue.h"
 #include <errno.h>
 #include <stdlib.h>
 #include <math.h>
+
+typedef struct team {
+  player_list *players;
+  player_queue *top_nine;
+  float avg_abr;
+  char team[4];
+} team;
+
+typedef struct team_list {
+  team *t;
+} team_list;
+
+// initialize all the players and teams
+//   add players to teams
+//     as we go, keep the players sorted by abr
+//   add teams to team list
+// for each team
+//   generate team abr
+//   enqueue the top 9 players
+// sort team list by avg_abr
+// print stats
 
 void teardown(player_t **players, int player_count) {
   for (int i = 0; i < player_count; i++) {
@@ -24,12 +47,10 @@ int create_players(FILE *file, player_t ***players) {
       stats[i] = stat;
       i++;
     }
-    if (num_players % 10 == 0) {
-      size_t alloc_size = ((num_players + 10) * sizeof(player_t *));
-      *players = realloc(*players, alloc_size);
-      if (*players == NULL) {
-        exit(errno);
-      }
+    size_t alloc_size = ((num_players + 1) * sizeof(player_t *));
+    *players = realloc(*players, alloc_size);
+    if (*players == NULL) {
+      exit(errno);
     }
 
     player_t *p = create_player(stats);
