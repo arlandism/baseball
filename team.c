@@ -13,6 +13,9 @@ void insert_player(team *t, player_t *p) {
   insert(t->players, p);
 }
 
+void sort_players_by_abr(team *t) {
+}
+
 void calculate_team_abr(team *t) {
   list *l = t->players->item;
   float avg = 0.0;

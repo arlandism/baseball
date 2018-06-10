@@ -60,7 +60,7 @@ void print_stats(list **teams) {
   }
 }
 
-void sort_teams_by_abr_asc(team **teams) {
+void sort_teams_by_abr_asc(list **teams) {
 }
 
 int main(int argc, const char * argv[]) {

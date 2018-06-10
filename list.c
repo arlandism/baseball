@@ -8,10 +8,11 @@ list *insert(list *head, void *item) {
   return new_list;
 }
 
-list *search(list *head, void *item) {
-  while(head != NULL && head->item != item)
-    head = head->next;
-  return head;
+list *search_list(list **head, void *item) {
+  list *l = *head;
+  while(l != NULL && l->item != item)
+    l = l->next;
+  return l;
 }
 
 void free_list(list *l) {
