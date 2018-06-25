@@ -24,7 +24,7 @@ void teardown(list **teams) {
 void initialize_teams(FILE *file, list **teams) {
   char player_string[10000];
   char *stats[30];
-  int num_teams = 0;
+  int num_teams = 1;
   while ((fgets(player_string, 10000, file) != NULL)) {
     char *stat;
     int i = 0;
@@ -34,49 +34,28 @@ void initialize_teams(FILE *file, list **teams) {
       i++;
     }
     player_t *p = create_player(stats);
-    list *team_node = search_list(teams, p->team);
-    team *team;
-    if (team_node == NULL) {
-      teams = realloc(teams, sizeof(team));
-      if (teams == NULL) {
-        exit(errno);
-      }
-      num_teams += 1;
-      team = create_team(p->team); // TODO need to alloc here
-    } else {
-      team = team_node->item;
-    }
-
-    insert_player(team, p);
   }
 }
 
 void print_stats(list **teams) {
-  list *l = (*teams);
-  while (l != NULL) {
-    team *team = l->item;
-    printf("Team: %s\nAvg ABR: %f\n", team->name, team->avg_abr);
-    l = l->next;
-  }
 }
 
 void sort_teams_by_abr_asc(list **teams) {
 }
 
 int main(int argc, const char * argv[]) {
-  list **names = NULL;
-  printf("The first name is %s\n", (*names)->item);
   FILE *file = fopen(argv[1], "r");
   list **teams = NULL;
   initialize_teams(file, teams);
-  list *l = *teams;
-  while (l != NULL) {
-    calculate_team_abr(l->item);
-    sort_players_by_abr(l->item);
-    l = l->next;
-  }
-  sort_teams_by_abr_asc(teams);
-  print_stats(teams);
-  teardown(teams);
+//  printf("Teams is pointing at %p\n", teams);
+//  list *l = *teams;
+//  while (l != NULL) {
+//    calculate_team_abr(l->item);
+//    sort_players_by_abr(l->item);
+//    l = l->next;
+//  }
+////  sort_teams_by_abr_asc(teams);
+//  print_stats(teams);
+//  teardown(teams);
   return 0;
 }

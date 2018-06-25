@@ -7,7 +7,7 @@ typedef struct list {
   struct list *next;
 } list;
 
-list * insert(list *l, void *item);
+list * insert(list **l, void *item);
 
 list *search_list(list **l, void *item);
 #endif
