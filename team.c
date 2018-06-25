@@ -10,7 +10,7 @@ team * create_team(char *team_name) {
 }
 
 void insert_player(team *t, player_t *p) {
-  insert(t->players, p);
+  insert(&t->players, p);
 }
 
 void sort_players_by_abr(team *t) {
