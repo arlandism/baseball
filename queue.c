@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 void enqueue(queue *q, void *item) {
-  insert(q->list, item);
+  insert(&q->list, item);
 }
 
 void * dequeue(queue *q) {

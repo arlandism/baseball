@@ -21,6 +21,12 @@
 void teardown(list **teams) {
 }
 
+void assign_to_team(player_t *player, list **teams) {
+  // this may change the HEAD of the list
+  team *t = find_or_create_team(teams, player->team);
+//  insert_player(t, player);
+}
+
 void initialize_teams(FILE *file, list **teams) {
   char player_string[10000];
   char *stats[30];
@@ -34,6 +40,7 @@ void initialize_teams(FILE *file, list **teams) {
       i++;
     }
     player_t *p = create_player(stats);
+    assign_to_team(p, teams);
   }
 }
 

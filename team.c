@@ -2,6 +2,16 @@
 #include "team.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
+
+team * find_or_create_team(list **teams, char *team_name) {
+  list *l = search_list(teams, team_name);
+  if (l == NULL) {
+    team *t = create_team(team_name);
+    l = insert(teams, t);
+  }
+  return l->item;
+}
 
 team * create_team(char *team_name) {
   team *team = malloc(sizeof(team));
