@@ -24,7 +24,7 @@ void teardown(list **teams) {
 void assign_to_team(player_t *player, list **teams) {
   // this may change the HEAD of the list
   team *t = find_or_create_team(teams, player->team);
-//  insert_player(t, player);
+  insert_player(t, player);
 }
 
 void initialize_teams(FILE *file, list **teams) {
@@ -54,6 +54,13 @@ int main(int argc, const char * argv[]) {
   FILE *file = fopen(argv[1], "r");
   list **teams = NULL;
   initialize_teams(file, teams);
+  printf("Teams is %p\n", teams);
+  list* head = *teams;
+  while (head) {
+    team *t = head->item;
+    printf("Team name is %s\n", t->name);
+    head = head->next;
+  }
 //  printf("Teams is pointing at %p\n", teams);
 //  list *l = *teams;
 //  while (l != NULL) {

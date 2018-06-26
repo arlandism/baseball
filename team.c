@@ -10,6 +10,9 @@ team * find_or_create_team(list **teams, char *team_name) {
     team *t = create_team(team_name);
     l = insert(teams, t);
   }
+  if (teams == NULL) {
+    teams = &l;
+  }
   return l->item;
 }
 
