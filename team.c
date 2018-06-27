@@ -8,7 +8,10 @@ team * find_or_create_team(list **teams, char *team_name) {
   team *t = find_team_by_name(teams, team_name);
   if (t == NULL) {
     t = create_team(team_name);
+    printf("Team name before insert is %s\n", t->name);
     insert(teams, t);
+    t = (*teams)->item;
+    printf("Team name after insert is %s\n", t->name);
   }
   return t;
 }
@@ -33,7 +36,6 @@ team * find_team_by_name(list **teams, char *team_name) {
 team * create_team(char *team_name) {
   team *team = malloc(sizeof(team));
   strncpy(team->name, team_name, 3);
-  printf("Team name is %s\n", team->name);
   return team;
 }
 
