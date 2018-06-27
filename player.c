@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <stdio.h>
 
 int effective_plate_appearances(player_t *p) {
   return p->at_bat + p->walks;
@@ -64,10 +65,10 @@ player_t * create_player(char **stats) {
     exit(errno);
   }
   normalize_name(stats[0]);
-  strncpy(p->name, stats[0], 29);
+  strlcpy(p->name, stats[0], 30);
   p->age = atoi(stats[1]);
-  strncpy(p->team, stats[2], 3);
-  strncpy(p->league, stats[3], 3);
+  strlcpy(p->team, stats[2], 4);
+  strlcpy(p->league, stats[3], 4);
   p->g = atoi(stats[4]);
   p->plate_appearances = atoi(stats[5]);
   p->at_bat = atoi(stats[6]);
@@ -92,6 +93,6 @@ player_t * create_player(char **stats) {
   p->sh = atoi(stats[25]);
   p->sacrifice_fly = atoi(stats[26]);
   p->intentional_walk = atoi(stats[27]);
-  strncpy(p->position, stats[28], 10);
+  strlcpy(p->position, stats[28], 11);
   return p;
 }
