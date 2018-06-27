@@ -5,11 +5,7 @@
 list *insert(list **head, void *item) {
   list *new_list = malloc(sizeof(list));
   new_list->item = item;
-  if (*head == NULL) {
-    new_list->next = NULL;
-  } else {
-    new_list->next = *head;
-  }
+  new_list->next = *head;
   *head = new_list;
   return new_list;
 }
