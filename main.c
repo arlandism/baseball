@@ -55,11 +55,11 @@ int main(int argc, const char * argv[]) {
   list *teams = NULL;
   initialize_teams(file, &teams);
   list* head = teams;
-//  while (head) {
-//    team_t *t = head->item;
-//    printf("Team name is %s\n", t->name);
-//    head = head->next;
-//  }
+  while (head) {
+    team_t *t = head->item;
+    printf("Team name is %s\n", t->name);
+    head = head->next;
+  }
 //  printf("Teams is pointing at %p\n", teams);
 //  list *l = *teams;
 //  while (l != NULL) {

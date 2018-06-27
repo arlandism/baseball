@@ -8,12 +8,8 @@ team_t * find_or_create_team(list **teams, char *team_name) {
   team_t *t = find_team_by_name(teams, team_name);
   if (t == NULL) {
     t = create_team(team_name);
-    printf("Team name before insert is %p\n", t->name);
-    printf("Team name before insert is %s\n", t->name);
     insert(teams, t);
     t = (*teams)->item;
-    printf("Team name after insert is %p\n", t->name);
-    printf("Team name after insert is %s\n", t->name);
   }
   return t;
 }
