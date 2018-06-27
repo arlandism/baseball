@@ -36,7 +36,7 @@ team_t * find_team_by_name(list **teams, char *team_name) {
 }
 
 team_t * create_team(char *team_name) {
-  team_t *team = malloc(sizeof(team));
+  team_t *team = malloc(sizeof(team_t));
   strlcpy(team->name, team_name, 4);
   return team;
 }
