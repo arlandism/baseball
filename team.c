@@ -45,8 +45,8 @@ void sort_players_by_abr(team_t *t) {
 }
 
 void calculate_team_abr(team_t *t) {
-  list *l = t->players->item;
   float avg = 0.0;
+  list *l = t->players;
   while(l != NULL) {
     player_t *p = l->item;
     avg += avg_base_rating(p);
