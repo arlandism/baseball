@@ -52,13 +52,12 @@ void sort_teams_by_abr_asc(list **teams) {
 
 int main(int argc, const char * argv[]) {
   FILE *file = fopen(argv[1], "r");
-  list **teams = NULL;
-  initialize_teams(file, teams);
-  printf("Teams is %p\n", teams);
-  list* head = *teams;
+  list *teams = NULL;
+  initialize_teams(file, &teams);
+  list* head = teams;
   while (head) {
     team *t = head->item;
-    printf("Team name is %s\n", t->name);
+//    printf("Team name is %s\n", t->name);
     head = head->next;
   }
 //  printf("Teams is pointing at %p\n", teams);

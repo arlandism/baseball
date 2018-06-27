@@ -5,20 +5,35 @@
 #include <stdio.h>
 
 team * find_or_create_team(list **teams, char *team_name) {
-  list *l = search_list(teams, team_name);
-  if (l == NULL) {
-    team *t = create_team(team_name);
-    l = insert(teams, t);
+  team *t = find_team_by_name(teams, team_name);
+  if (t == NULL) {
+    t = create_team(team_name);
+    insert(teams, t);
   }
-  if (teams == NULL) {
-    teams = &l;
+  return t;
+}
+
+team * find_team_by_name(list **teams, char *team_name) {
+  if (*teams == NULL) {
+    return NULL;
   }
-  return l->item;
+
+  list *l = *teams;
+  team *t;
+  while(l != NULL) {
+    t = l->item;
+    if (strcmp(t->name, team_name) == 0) {
+      return t;
+    }
+    l = l->next;
+  }
+  return NULL;
 }
 
 team * create_team(char *team_name) {
   team *team = malloc(sizeof(team));
   strncpy(team->name, team_name, 3);
+  printf("Team name is %s\n", team->name);
   return team;
 }
 
