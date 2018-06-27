@@ -4,25 +4,27 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-team * find_or_create_team(list **teams, char *team_name) {
-  team *t = find_team_by_name(teams, team_name);
+team_t * find_or_create_team(list **teams, char *team_name) {
+  team_t *t = find_team_by_name(teams, team_name);
   if (t == NULL) {
     t = create_team(team_name);
+    printf("Team name before insert is %p\n", t->name);
     printf("Team name before insert is %s\n", t->name);
     insert(teams, t);
     t = (*teams)->item;
+    printf("Team name after insert is %p\n", t->name);
     printf("Team name after insert is %s\n", t->name);
   }
   return t;
 }
 
-team * find_team_by_name(list **teams, char *team_name) {
+team_t * find_team_by_name(list **teams, char *team_name) {
   if (*teams == NULL) {
     return NULL;
   }
 
   list *l = *teams;
-  team *t;
+  team_t *t;
   while(l != NULL) {
     t = l->item;
     if (strcmp(t->name, team_name) == 0) {
@@ -33,20 +35,20 @@ team * find_team_by_name(list **teams, char *team_name) {
   return NULL;
 }
 
-team * create_team(char *team_name) {
-  team *team = malloc(sizeof(team));
-  strncpy(team->name, team_name, 3);
+team_t * create_team(char *team_name) {
+  team_t *team = malloc(sizeof(team));
+  strlcpy(team->name, team_name, 4);
   return team;
 }
 
-void insert_player(team *t, player_t *p) {
+void insert_player(team_t *t, player_t *p) {
   insert(&t->players, p);
 }
 
-void sort_players_by_abr(team *t) {
+void sort_players_by_abr(team_t *t) {
 }
 
-void calculate_team_abr(team *t) {
+void calculate_team_abr(team_t *t) {
   list *l = t->players->item;
   float avg = 0.0;
   while(l != NULL) {

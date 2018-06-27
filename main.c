@@ -23,7 +23,7 @@ void teardown(list **teams) {
 
 void assign_to_team(player_t *player, list **teams) {
   // this may change the HEAD of the list
-  team *t = find_or_create_team(teams, player->team);
+  team_t *t = find_or_create_team(teams, player->team);
   insert_player(t, player);
 }
 
@@ -56,7 +56,7 @@ int main(int argc, const char * argv[]) {
   initialize_teams(file, &teams);
   list* head = teams;
 //  while (head) {
-//    team *t = head->item;
+//    team_t *t = head->item;
 //    printf("Team name is %s\n", t->name);
 //    head = head->next;
 //  }
