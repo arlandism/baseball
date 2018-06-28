@@ -30,7 +30,6 @@ void assign_to_team(player_t *player, list **teams) {
 void initialize_teams(FILE *file, list **teams) {
   char player_string[10000];
   char *stats[30];
-  int num_teams = 1;
   while ((fgets(player_string, 10000, file) != NULL)) {
     char *stat;
     int i = 0;
@@ -57,7 +56,13 @@ int main(int argc, const char * argv[]) {
   list* head = teams;
   while (head) {
     team_t *t = head->item;
-    printf("Team name is %s\n", t->name);
+    calculate_team_abr(t);
+    printf("%s\t%f\n", t->name, t->avg_abr);
+    list* players = t->players;
+    while (players) {
+      //player_t *p = players->item;
+      players = players->next;
+    }
     head = head->next;
   }
 //  printf("Teams is pointing at %p\n", teams);
