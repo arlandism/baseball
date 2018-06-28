@@ -19,8 +19,9 @@ void * dequeue(queue *q) {
   if (tail == NULL) return NULL;
 
   // advance to the end of the list
-  while (tail->next != NULL)
+  while (tail->next != NULL) {
     tail = tail->next;
+  }
 
   return tail->item;
 }

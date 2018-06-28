@@ -6,6 +6,7 @@ typedef struct queue {
   list *list;
 } queue;
 
+queue * initialize_queue();
 void enqueue(queue *q, void*item);
 void * dequeue(queue *q);
 #endif
