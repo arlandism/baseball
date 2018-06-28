@@ -57,6 +57,7 @@ int main(int argc, const char * argv[]) {
   sort_list(teams, lower_abr);
   while (head) {
     team_t *t = head->item;
+    compute_best_abrs(t);
     calculate_team_abr(t);
     printf("%s\t%f\n", t->name, t->avg_abr);
     head = head->next;

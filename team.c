@@ -64,12 +64,11 @@ void compute_best_abrs(team_t *t) {
   sort_players_by_abr(t);
   list *players = t->players;
   player_t *player = players->item;
-  queue *q = initialize_queue();
-  enqueue(q, player);
+  enqueue(t->top_nine, player);
   for(int i = 0; i < 9; i++) {
     players = players->next;
     player = players->item;
-    enqueue(q, player);
+    enqueue(t->top_nine, player);
   }
 }
 

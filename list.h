@@ -11,4 +11,5 @@ list * insert(list **head, void *item);
 
 list *search_list(list *l, void *item);
 void sort_list(list *head, int comparator (void *a, void *b));
+void free_list(list *l);
 #endif
