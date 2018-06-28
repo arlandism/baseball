@@ -36,6 +36,7 @@ team_t * create_team(char *team_name) {
   team_t *team = malloc(sizeof(team_t));
   strlcpy(team->name, team_name, 4);
   team->players = NULL;
+  team->top_nine = initialize_queue();
   return team;
 }
 
@@ -47,7 +48,10 @@ void sort_players_by_abr(team_t *t) {
   sort_list(t->players, higher_abr);
 }
 
-int lower_abr(team_t *t_one, team_t *t_two) {
+int lower_abr(void *x, void *y) {
+  team_t *t_one = x;
+  team_t *t_two = y;
+
   if (t_one->avg_abr < t_two->avg_abr) {
     return 1;
   } else if (t_one->avg_abr == t_two->avg_abr) {

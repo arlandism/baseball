@@ -19,7 +19,17 @@ list *search_list(list *head, void *item) {
 }
 
 void sort_list(list *head, int comparator (void *a, void *b)) {
-
+  list *node = head;
+  while(node) {
+    list *other_base = head;
+    while(comparator(other_base->item, node->item) < 0) {
+      void *tmp = node->item;
+      node->item = other_base->item;
+      other_base->item = tmp;
+      other_base = other_base->next;
+    }
+    node = node->next;
+  }
 }
 
 void free_list(list *l) {

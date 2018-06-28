@@ -4,7 +4,9 @@
 #include <errno.h>
 #include <stdio.h>
 
-int higher_abr(player_t *p_one, player_t *p_two) {
+int higher_abr(void *x, void *y) {
+  player_t *p_one = x;
+  player_t *p_two = y;
   float one_abr = avg_base_rating(p_one);
   float two_abr = avg_base_rating(p_two);
 
