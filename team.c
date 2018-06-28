@@ -44,6 +44,16 @@ void insert_player(team_t *t, player_t *p) {
 }
 
 void sort_players_by_abr(team_t *t) {
+  sort_list(t->players, higher_abr);
+}
+
+int lower_abr(team_t *t_one, team_t *t_two) {
+  if (t_one->avg_abr < t_two->avg_abr) {
+    return 1;
+  } else if (t_one->avg_abr == t_two->avg_abr) {
+    return 0;
+  }
+  return -1;
 }
 
 void compute_best_abrs(team_t *t) {

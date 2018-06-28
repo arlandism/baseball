@@ -18,6 +18,10 @@ list *search_list(list *head, void *item) {
   return l;
 }
 
+void sort_list(list *head, int comparator (void *a, void *b)) {
+
+}
+
 void free_list(list *l) {
   free(l);
 }

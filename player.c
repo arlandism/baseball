@@ -4,6 +4,18 @@
 #include <errno.h>
 #include <stdio.h>
 
+int higher_abr(player_t *p_one, player_t *p_two) {
+  float one_abr = avg_base_rating(p_one);
+  float two_abr = avg_base_rating(p_two);
+
+  if (one_abr == two_abr) {
+    return 0;
+  } else if (one_abr > two_abr) {
+    return 1;
+  }
+  return -1;
+}
+
 int effective_plate_appearances(player_t *p) {
   return p->at_bat + p->walks;
 }

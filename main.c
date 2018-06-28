@@ -54,6 +54,7 @@ int main(int argc, const char * argv[]) {
   list *teams = NULL;
   initialize_teams(file, &teams);
   list* head = teams;
+  sort_list(teams, lower_abr);
   while (head) {
     team_t *t = head->item;
     calculate_team_abr(t);
