@@ -58,11 +58,6 @@ int main(int argc, const char * argv[]) {
     team_t *t = head->item;
     calculate_team_abr(t);
     printf("%s\t%f\n", t->name, t->avg_abr);
-    list* players = t->players;
-    while (players) {
-      //player_t *p = players->item;
-      players = players->next;
-    }
     head = head->next;
   }
 //  printf("Teams is pointing at %p\n", teams);
