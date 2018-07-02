@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <stdio.h>
 
+// Returns 1 if x is higher, -1 if y is higher, and 0 in a tie
 int higher_abr(void *x, void *y) {
   player_t *p_one = x;
   player_t *p_two = y;
