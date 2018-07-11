@@ -10,16 +10,11 @@ team_t * find_or_create_team(list **teams, char *team_name) {
   if (t == NULL) {
     t = create_team(team_name);
     insert(teams, t);
-    t = (*teams)->item;
   }
   return t;
 }
 
 team_t * find_team_by_name(list **teams, char *team_name) {
-  if (*teams == NULL) {
-    return NULL;
-  }
-
   list *l = *teams;
   team_t *t;
   while(l != NULL) {
@@ -46,7 +41,7 @@ void insert_player(team_t *t, player_t *p) {
 
 void sort_players_by_abr(team_t *t) {
   printf("Sorting players\n");
-  sort_list(t->players, higher_abr);
+  t->players = sort_list(t->players, higher_abr);
   list *head = t->players;
   while (head) {
     player_t *p = head->item;
