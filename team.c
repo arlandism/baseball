@@ -39,10 +39,6 @@ void insert_player(team_t *t, player_t *p) {
   insert(&t->players, p);
 }
 
-void sort_players_by_abr(team_t *t) {
-  t->players = sort_list(t->players, higher_abr);
-}
-
 int lower_abr(void *x, void *y) {
   team_t *t_one = x;
   team_t *t_two = y;
@@ -56,14 +52,12 @@ int lower_abr(void *x, void *y) {
 }
 
 void compute_best_abrs(team_t *t) {
-  sort_players_by_abr(t);
+  t->players = sort_list(t->players, higher_abr);
   list *players = t->players;
-  player_t *player = players->item;
-  enqueue(t->top_nine, player);
-  for(int i = 0; i < 9; i++) {
-    players = players->next;
-    player = players->item;
+  for(int i = 0; i < 10; i++) {
+    player_t *player = players->item;
     enqueue(t->top_nine, player);
+    players = players->next;
   }
 }
 
