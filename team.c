@@ -40,14 +40,7 @@ void insert_player(team_t *t, player_t *p) {
 }
 
 void sort_players_by_abr(team_t *t) {
-  printf("Sorting players\n");
   t->players = sort_list(t->players, higher_abr);
-  list *head = t->players;
-  while (head) {
-    player_t *p = head->item;
-    printf("%s\t%f\n", p->name, avg_base_rating(head->item));
-    head = head->next;
-  }
 }
 
 int lower_abr(void *x, void *y) {
