@@ -58,7 +58,11 @@ int lower_abr(void *x, void *y) {
   if (t_one->avg_abr < t_two->avg_abr) {
     return 1;
   } else if (t_one->avg_abr == t_two->avg_abr) {
-    return 0;
+    // alphabetical comparison on match
+    // invert the meaning with '-' since strcmp returns greater than, equal to, or less than 0
+    // according to whether the first string comes after, is equal to, or comes before
+    // the second (i.e. the exact opposite of what we want)
+    return -strcmp(t_one->name, t_two->name);
   }
   return -1;
 }
