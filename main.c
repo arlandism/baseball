@@ -23,23 +23,16 @@ void teardown(list **teams) {
   list *l = *teams;
   while (l) { // release team and team list memory
     team_t *t = l->item;
-    list *players = t->players;
-    while (players) { // release player and player list memory
-      player_t *p = players->item;
-      list *next = players->next;
-      free(p);
-      free(players);
-      players = next;
-    }
     list *next_team = l->next;
-    free(t);
+
+    destroy_team(t);
     free(l);
+
     l = next_team;
   }
 }
 
 void assign_to_team(player_t *player, list **teams) {
-  // this may change the HEAD of the list
   team_t *t = find_or_create_team(teams, player->team);
   insert_player(t, player);
 }

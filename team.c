@@ -35,6 +35,18 @@ team_t * create_team(char *team_name) {
   return team;
 }
 
+void destroy_team(team_t *t) {
+  list *players = t->players;
+  while (players) { // release player and player list memory
+    player_t *p = players->item;
+    list *next = players->next;
+    free(p);
+    free(players);
+    players = next;
+  }
+  free(t);
+}
+
 void insert_player(team_t *t, player_t *p) {
   insert(&t->players, p);
 }
