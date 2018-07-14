@@ -8,17 +8,34 @@
 #include <math.h>
 #include "team.h"
 
+// high level algorithm
 // initialize all the players and teams
 //   add players to teams
-//     as we go, keep the players sorted by abr
 //   add teams to team list
 // for each team
-//   generate team abr
+//   sort the players by their abr
 //   enqueue the top 9 players
+//   generate team abr
 // sort team list by avg_abr
 // print stats
 
 void teardown(list **teams) {
+  list *l = *teams;
+  while (l) { // release team and team list memory
+    team_t *t = l->item;
+    list *players = t->players;
+    while (players) { // release player and player list memory
+      player_t *p = players->item;
+      list *next = players->next;
+      free(p);
+      free(players);
+      players = next;
+    }
+    list *next_team = l->next;
+    free(t);
+    free(l);
+    l = next_team;
+  }
 }
 
 void assign_to_team(player_t *player, list **teams) {
@@ -44,9 +61,12 @@ void initialize_teams(FILE *file, list **teams) {
 }
 
 void print_stats(list **teams) {
-}
-
-void sort_teams_by_abr_asc(list **teams) {
+  list *l = *teams;
+  while (l) {
+    team_t *t = l->item;
+    printf("%s\t%f\n", t->name, t->avg_abr);
+    l = l->next;
+  }
 }
 
 int main(int argc, const char * argv[]) {
@@ -54,23 +74,14 @@ int main(int argc, const char * argv[]) {
   list *teams = NULL;
   initialize_teams(file, &teams);
   list* head = teams;
-  sort_list(teams, lower_abr);
   while (head) {
     team_t *t = head->item;
     compute_best_abrs(t);
     calculate_team_abr(t);
-    printf("%s\t%f\n", t->name, t->avg_abr);
     head = head->next;
   }
-//  printf("Teams is pointing at %p\n", teams);
-//  list *l = *teams;
-//  while (l != NULL) {
-//    calculate_team_abr(l->item);
-//    sort_players_by_abr(l->item);
-//    l = l->next;
-//  }
-////  sort_teams_by_abr_asc(teams);
-//  print_stats(teams);
-//  teardown(teams);
+  teams = sort_list(teams, lower_abr);
+  print_stats(&teams);
+  teardown(&teams);
   return 0;
 }
